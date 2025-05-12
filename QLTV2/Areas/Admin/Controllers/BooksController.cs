@@ -48,7 +48,7 @@ namespace QLTV2.Areas.Admin.Controllers
         // GET: Admin/Books/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "CategoryId");
+            ViewBag.CategoryId = new SelectList(_context.TbCategories, "CategoryId", "Title");
             return View();
         }
 
@@ -69,34 +69,24 @@ namespace QLTV2.Areas.Admin.Controllers
             return View(tbBook);
         }
 
-        // GET: Admin/Books/Edit/5
+        // GET: Admin/TbBooks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var tbBook = await _context.TbBooks.FindAsync(id);
-            if (tbBook == null)
-            {
-                return NotFound();
-            }
-            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "CategoryId", tbBook.CategoryId);
+            if (tbBook == null) return NotFound();
+
+            ViewBag.CategoryId = new SelectList(_context.TbCategories, "CategoryId", "Title", tbBook.CategoryId);
             return View(tbBook);
         }
 
-        // POST: Admin/Books/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Admin/TbBooks/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Author,Description,Image,Quantity,CategoryId,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,IsActive")] TbBook tbBook)
+        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Author,Description,Image,Quantity,CategoryId,IsActive,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy")] TbBook tbBook)
         {
-            if (id != tbBook.BookId)
-            {
-                return NotFound();
-            }
+            if (id != tbBook.BookId) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -107,42 +97,31 @@ namespace QLTV2.Areas.Admin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TbBookExists(tbBook.BookId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!_context.TbBooks.Any(e => e.BookId == id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.TbCategories, "CategoryId", "CategoryId", tbBook.CategoryId);
+            ViewBag.CategoryId = new SelectList(_context.TbCategories, "CategoryId", "Title", tbBook.CategoryId);
             return View(tbBook);
         }
 
-        // GET: Admin/Books/Delete/5
+        // GET: Admin/TbBooks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var tbBook = await _context.TbBooks
                 .Include(t => t.Category)
                 .FirstOrDefaultAsync(m => m.BookId == id);
-            if (tbBook == null)
-            {
-                return NotFound();
-            }
+
+            if (tbBook == null) return NotFound();
 
             return View(tbBook);
         }
 
-        // POST: Admin/Books/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Admin/TbBooks/DeleteConfirmed/5
+        [HttpPost, ActionName("DeleteConfirmed")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -150,15 +129,9 @@ namespace QLTV2.Areas.Admin.Controllers
             if (tbBook != null)
             {
                 _context.TbBooks.Remove(tbBook);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool TbBookExists(int id)
-        {
-            return _context.TbBooks.Any(e => e.BookId == id);
         }
     }
 }

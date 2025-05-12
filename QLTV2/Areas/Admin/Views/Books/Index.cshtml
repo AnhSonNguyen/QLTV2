@@ -1,0 +1,74 @@
+﻿@model IEnumerable<QLTV2.Models.TbBook>
+
+@{
+    ViewData["Title"] = "Danh sách sách";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <h1>Danh sách sách</h1>
+            <a class="btn btn-success" asp-action="Create">➕ Thêm sách mới</a>
+        </div>
+        <form asp-action="Index" method="get" class="mt-3">
+            <div class="input-group">
+                <input type="text" name="searchTerm" class="form-control" placeholder="Nhập tên sách cần tìm..." value="@Context.Request.Query["searchTerm"]" />
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">🔍 Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section class="content mt-3">
+        <div class="container-fluid">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Tên sách</th>
+                        <th>Tác giả</th>
+                        <th>Thể loại</th>
+                        <th>Mô tả</th>
+                        <th>Ảnh</th>
+                        <th>Số lượng</th>
+                        <th>Ngày tạo</th>
+                        <th>Người tạo</th>
+                        <th>Ngày sửa</th>
+                        <th>Người sửa</th>
+                        <th>Hiển thị</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>@item.Author</td>
+                            <td>@item.Category?.Title</td>
+                            <td>@item.Description</td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.Image))
+                                {
+                                    <img src="@item.Image" alt="Ảnh sách" width="80" />
+                                }
+                            </td>
+                            <td>@item.Quantity</td>
+                            <td>@item.CreatedDate?.ToString("dd/MM/yyyy")</td>
+                            <td>@item.CreatedBy</td>
+                            <td>@item.ModifiedDate?.ToString("dd/MM/yyyy")</td>
+                            <td>@item.ModifiedBy</td>
+                            <td>@(item.IsActive ? "Có" : "Không")</td>
+                            <td>
+                                <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.BookId">✏️ Sửa</a>
+                                <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@item.BookId">📖 Chi tiết</a>
+                                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.BookId">🗑️ Xóa</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

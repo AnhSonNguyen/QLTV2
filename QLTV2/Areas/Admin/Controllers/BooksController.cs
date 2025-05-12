@@ -106,7 +106,7 @@ namespace QLTV2.Areas.Admin.Controllers
             return View(tbBook);
         }
 
-        // GET: Admin/TbBooks/Delete/5
+        // GET: Admin/Books/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -120,10 +120,10 @@ namespace QLTV2.Areas.Admin.Controllers
             return View(tbBook);
         }
 
-        // POST: Admin/TbBooks/DeleteConfirmed/5
-        [HttpPost, ActionName("DeleteConfirmed")]
+        // POST: Admin/Books/Delete/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var tbBook = await _context.TbBooks.FindAsync(id);
             if (tbBook != null)

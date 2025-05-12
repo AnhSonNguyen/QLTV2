@@ -42,7 +42,8 @@
                         <dd class="col-sm-9">@Model.CreatedBy</dd>
                     </dl>
 
-                    <form asp-action="DeleteConfirmed" method="post">
+                    <!-- Sửa asp-action thành "Delete" -->
+                    <form asp-action="Delete" method="post">
                         <input type="hidden" asp-for="BookId" />
                         <button type="submit" class="btn btn-danger"> Xác nhận xóa</button>
                         <a asp-action="Index" class="btn btn-secondary"> Hủy</a>

@@ -2,7 +2,7 @@
 
 namespace QLTV2.Areas.Admin.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AdminBaseController
     {
         [Area("Admin")]
         public IActionResult Index()

@@ -10,7 +10,7 @@ using QLTV2.Models;
 namespace QLTV2.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BooksController : Controller
+    public class BooksController : AdminBaseController
     {
         private readonly LibraryDbContext _context;
 

@@ -1,69 +1,56 @@
 ﻿@model QLTV2.Models.TbAccount
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xác nhận xóa tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<div class="content-wrapper">
+    <!-- Tiêu đề & nút quay lại -->
+    <section class="content-header">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <h1>Xác nhận xóa tài khoản</h1>
+            <a class="btn btn-secondary" asp-action="Index">⬅️ Quay lại danh sách</a>
+        </div>
+    </section>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>TbAccount</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Username)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastLogin)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastLogin)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Role.RoleId)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="AccountId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <!-- Nội dung xác nhận -->
+    <section class="content mt-3">
+        <div class="container-fluid">
+            <h5>Bạn có chắc chắn muốn xóa tài khoản sau không?</h5>
+
+            <div class="card mt-3">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Tên đăng nhập</dt>
+                        <dd class="col-sm-9">@Model.Username</dd>
+
+                        <dt class="col-sm-3">Họ tên</dt>
+                        <dd class="col-sm-9">@Model.FullName</dd>
+
+                        <dt class="col-sm-3">Email</dt>
+                        <dd class="col-sm-9">@Model.Email</dd>
+
+                        <dt class="col-sm-3">Số điện thoại</dt>
+                        <dd class="col-sm-9">@Model.Phone</dd>
+
+                        <dt class="col-sm-3">Vai trò</dt>
+                        <dd class="col-sm-9">@Model.Role?.RoleName</dd>
+
+                        <dt class="col-sm-3">Lần đăng nhập cuối</dt>
+                        <dd class="col-sm-9">
+                            @(Model.LastLogin.HasValue ? Model.LastLogin.Value.ToString("dd/MM/yyyy HH:mm") : "Chưa đăng nhập")
+                        </dd>
+                    </dl>
+
+                    <!-- Form xác nhận xóa -->
+                    <form asp-action="DeleteConfirmed" method="post">
+                        <input type="hidden" asp-for="AccountId" />
+                        <button type="submit" class="btn btn-danger">🗑️ Xác nhận xóa</button>
+                        <a asp-action="Index" class="btn btn-secondary">❌ Hủy</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

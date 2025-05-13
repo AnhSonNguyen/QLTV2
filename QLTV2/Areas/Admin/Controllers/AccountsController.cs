@@ -143,8 +143,8 @@ namespace QLTV2.Areas.Admin.Controllers
             return View(account);
         }
 
-        // Xóa tài khoản (POST)
-        [HttpPost, ActionName("Delete")]
+        // Xóa tài khoản (POST): Giống BooksController
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {

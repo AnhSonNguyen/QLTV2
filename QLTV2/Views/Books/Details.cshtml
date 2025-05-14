@@ -1,0 +1,33 @@
+﻿@model QLTV2.Models.TbBook
+
+@{
+    ViewData["Title"] = "Chi tiết sách";
+}
+
+<section class="py-5 my-5">
+    <div class="container">
+        <div class="row">
+            <!-- Ảnh sách -->
+            <div class="col-md-4">
+                <img src="@Url.Content("~/" + Model.Image)" alt="Ảnh sách" class="img-fluid rounded shadow-sm" />
+            </div>
+
+            <!-- Thông tin sách -->
+            <div class="col-md-8">
+                <h2 class="mb-3">@Model.Title</h2>
+                <p><strong>Tác giả:</strong> @Model.Author</p>
+                <p><strong>Thể loại:</strong> @Model.Category?.Title</p>
+                <p><strong>Số lượng còn lại:</strong> @Model.Quantity</p>
+                <p><strong>Ngày thêm:</strong> @Model.CreatedDate?.ToString("dd/MM/yyyy")</p>
+
+                <p><strong>Mô tả:</strong></p>
+                <p>@Model.Description</p>
+
+                <!-- Nút mượn sách -->
+                <a href="@Url.Action("Create", "Borrow", new { bookId = Model.BookId })" class="btn btn-primary mt-3">
+                    Mượn sách
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

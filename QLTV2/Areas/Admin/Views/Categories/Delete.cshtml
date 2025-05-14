@@ -1,33 +1,30 @@
-﻿@model QLTV2.Models.TbAccount
+﻿@model QLTV2.Models.TbCategory
 
 @{
-    ViewData["Title"] = "Xác nhận xóa tài khoản";
+    ViewData["Title"] = "Delete";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid d-flex justify-content-between align-items-center">
-            <h1>Xác nhận xóa tài khoản</h1>
+            <h1>Xác nhận xóa thể loại</h1>
             <a class="btn btn-secondary" asp-action="Index">⬅️ Quay lại danh sách</a>
         </div>
     </section>
     <section class="content mt-3">
         <div class="container-fluid">
-            <h5>Bạn có chắc chắn muốn xóa tài khoản sau không?</h5>
+            <h5>Bạn có chắc chắn muốn xóa thể loại sau không?</h5>
             <div class="card mt-3">
                 <div class="card-body">
                     <dl class="row">
-                        <dt class="col-sm-3">Tên tài khoản</dt>
-                        <dd class="col-sm-9">@Model.Username</dd>
-                        <dt class="col-sm-3">Họ tên</dt>
-                        <dd class="col-sm-9">@Model.FullName</dd>
-                        <dt class="col-sm-3">Email</dt>
-                        <dd class="col-sm-9">@Model.Email</dd>
+                        <dt class="col-sm-3">Tên thể loại</dt>
+                        <dd class="col-sm-9">@Model.Title</dd>
+                        <dt class="col-sm-3">Mô tả</dt>
+                        <dd class="col-sm-9">@Model.Description</dd>
                     </dl>
                     <!-- Sửa asp-action thành "Delete" -->
                     <form asp-action="Delete" method="post">
-                        <input type="hidden" asp-for="AccountId" />
+                        <input type="hidden" asp-for="CategoryId" />
                         <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
                         <a asp-action="Index" class="btn btn-secondary">Hủy</a>
                     </form>

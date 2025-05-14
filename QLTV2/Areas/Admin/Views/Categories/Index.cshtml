@@ -1,0 +1,45 @@
+﻿@model IEnumerable<QLTV2.Models.TbCategory>
+
+@{
+    ViewData["Title"] = "Danh sách thể loại";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <h1>Danh sách thể loại</h1>
+            <a class="btn btn-success" asp-action="Create">➕ Thêm thể loại</a>
+        </div>
+    </section>
+
+    <section class="content mt-3">
+        <div class="container-fluid">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Mã thể loại</th>
+                        <th>Tên thể loại</th>
+                        <th>Mô tả</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.CategoryId</td>
+                            <td>@item.Title</td>
+                            <td>@item.Description</td>
+                            <td>
+                                <a class="btn btn-sm btn-info" asp-action="Edit" asp-route-id="@item.CategoryId">✏️ Sửa</a>
+                                <a class="btn btn-sm btn-secondary" asp-action="Details" asp-route-id="@item.CategoryId">📖 Chi tiết</a>
+                                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.CategoryId">🗑️ Xóa</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

@@ -50,15 +50,32 @@
 					</div>
 					<div class="col-md-6">
 						<div class="right-element">
-							<a href="/Account/Login" class="user-account for-buy">
-								<i class="icon icon-user"></i><span>Account</span>
-							</a>
-							<a href="#" class="cart for-buy">
-								<i class="icon icon-clipboard"></i><span>
-									Cart:(0
-									$)
-								</span>
-							</a>
+							@if (Context.Session.GetString("Username") != null)
+							{
+								<a href="#" class="user-account for-buy">
+									<i class="icon icon-user"></i>
+									<span>@Context.Session.GetString("FullName")</span>
+								</a>
+								<a href="@Url.Action("Index", "Borrow")" class="user-account for-buy ms-2">
+									<i class="icon icon-clipboard"></i>
+									<span>Sách đang mượn</span>
+								</a>
+								<a href="@Url.Action("History", "Borrow")" class="user-account for-buy ms-2">
+									<i class="icon icon-clock"></i>
+									<span>Lịch sử mượn</span>
+								</a>
+								<a href="@Url.Action("Logout", "Account")" class="user-account for-buy ms-2">
+									<i class="icon icon-logout"></i>
+									<span>Đăng xuất</span>
+								</a>
+							}
+							else
+							{
+								<a href="@Url.Action("Login", "Account")" class="user-account for-buy">
+									<i class="icon icon-user"></i>
+									<span>Đăng nhập</span>
+								</a>
+							}
 
 							<div class="action-menu">
 

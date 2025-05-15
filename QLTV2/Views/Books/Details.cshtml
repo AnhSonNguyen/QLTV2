@@ -6,28 +6,77 @@
 
 <section class="py-5 my-5">
     <div class="container">
-        <div class="row">
+        <div class="row g-5 align-items-start">
             <!-- Ảnh sách -->
-            <div class="col-md-4">
-                <img src="@Url.Content("~/" + Model.Image)" alt="Ảnh sách" class="img-fluid rounded shadow-sm" />
+            <div class="col-md-5">
+                <div class="p-3 bg-light border rounded shadow-sm text-center">
+                    <img src="@Url.Content("~/" + Model.Image)"
+                         alt="Ảnh sách"
+                         class="img-fluid rounded mb-3"
+                         style="max-height: 450px; object-fit: contain;" />
+                </div>
             </div>
 
             <!-- Thông tin sách -->
-            <div class="col-md-8">
-                <h2 class="mb-3">@Model.Title</h2>
-                <p><strong>Tác giả:</strong> @Model.Author</p>
-                <p><strong>Thể loại:</strong> @Model.Category?.Title</p>
-                <p><strong>Số lượng còn lại:</strong> @Model.Quantity</p>
-                <p><strong>Ngày thêm:</strong> @Model.CreatedDate?.ToString("dd/MM/yyyy")</p>
+            <div class="col-md-7">
+                <div class="p-4 bg-white border rounded shadow-sm h-100">
+                    <h2 class="mb-4 text-primary">@Model.Title</h2>
 
-                <p><strong>Mô tả:</strong></p>
-                <p>@Model.Description</p>
+                    <dl class="row">
+                        <dt class="col-sm-4">Tác giả:</dt>
+                        <dd class="col-sm-8">@Model.Author</dd>
 
-                <!-- Nút mượn sách -->
-                <a href="@Url.Action("Create", "Borrow", new { bookId = Model.BookId })" class="btn btn-primary mt-3">
-                    Mượn sách
-                </a>
+                        <dt class="col-sm-4">Thể loại:</dt>
+                        <dd class="col-sm-8">@Model.Category?.Title</dd>
+
+                        <dt class="col-sm-4">Số lượng còn lại:</dt>
+                        <dd class="col-sm-8">@Model.Quantity</dd>
+
+                        <dt class="col-sm-4">Ngày thêm:</dt>
+                        <dd class="col-sm-8">@Model.CreatedDate?.ToString("dd/MM/yyyy")</dd>
+                    </dl>
+
+                    <div class="mt-4">
+                        <h5 class="text-primary">Mô tả:</h5>
+                        <p class="text-justify">@Model.Description</p>
+                    </div>
+
+                    <!-- Nút mượn sách -->
+                    <div class="mt-4">
+                        <a href="@Url.Action("Create", "Borrow", new { bookId = Model.BookId })" class="btn btn-primary px-4">
+                            <i class="bi bi-book"></i> Mượn sách
+                        </a>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!-- Bình luận & đánh giá -->
+        <div class="mt-5">
+            <h4 class="text-primary mb-4">Bình luận & Đánh giá</h4>
+
+            <!-- Danh sách bình luận -->
+            <div class="mb-4">
+                <!-- Ví dụ bình luận (sẽ thay bằng dữ liệu thật trong Controller) -->
+                <div class="border-bottom pb-2 mb-2">
+                    <strong>Nguyễn Văn A</strong> <small class="text-muted">- 10/05/2025</small>
+                    <p>Cuốn sách rất bổ ích, dễ hiểu.</p>
+                </div>
+                <div class="border-bottom pb-2 mb-2">
+                    <strong>Trần Thị B</strong> <small class="text-muted">- 12/05/2025</small>
+                    <p>Giá trị nội dung rất sâu sắc.</p>
+                </div>
+            </div>
+
+            <!-- Form gửi bình luận -->
+            <form method="post" asp-controller="BookReview" asp-action="Create">
+                <input type="hidden" name="BookId" value="@Model.BookId" />
+                <div class="mb-3">
+                    <label for="Content" class="form-label">Viết bình luận của bạn</label>
+                    <textarea name="Content" id="Content" rows="4" class="form-control" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-outline-primary">Gửi bình luận</button>
+            </form>
         </div>
     </div>
 </section>

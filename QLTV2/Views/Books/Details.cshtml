@@ -41,12 +41,26 @@
                         <p class="text-justify">@Model.Description</p>
                     </div>
 
-                    <!-- Nút mượn sách -->
-                    <div class="mt-4">
-                        <a href="@Url.Action("Create", "Borrow", new { bookId = Model.BookId })" class="btn btn-primary px-4">
-                            <i class="bi bi-book"></i> Mượn sách
-                        </a>
-                    </div>
+                    <!-- Form mượn sách -->
+                    <form asp-controller="Borrow" asp-action="Create" method="post" class="mt-4 row g-3">
+                        <input type="hidden" name="BookId" value="@Model.BookId" />
+
+                        <div class="col-md-4">
+                            <label for="Quantity" class="form-label">Số lượng muốn mượn:</label>
+                            <input type="number" name="Quantity" id="Quantity" class="form-control" min="1" max="@Model.Quantity" value="1" required />
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="ReturnDate" class="form-label">Ngày trả dự kiến:</label>
+                            <input type="date" name="ReturnDate" id="ReturnDate" class="form-control" required />
+                        </div>
+
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="bi bi-book"></i> Mượn sách
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

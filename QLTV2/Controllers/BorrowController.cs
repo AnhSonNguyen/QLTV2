@@ -59,5 +59,22 @@ namespace QLTV2.Controllers
             TempData["Success"] = "Mượn sách thành công!";
             return RedirectToAction("Details", "Books", new { id = BookId });
         }
+        public async Task<IActionResult> MyBorrows()
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var borrows = await _context.TbBorrows
+     .Where(b => b.AccountId == userId)
+     .Include(b => b.TbBorrowDetails)
+         .ThenInclude(d => d.Book)
+     .OrderByDescending(b => b.BorrowDate)
+     .ToListAsync();
+
+            return View(borrows);
+        }
     }
 }

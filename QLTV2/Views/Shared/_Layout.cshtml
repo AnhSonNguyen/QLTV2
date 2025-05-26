@@ -56,13 +56,9 @@
 									<i class="icon icon-user"></i>
 									<span>@Context.Session.GetString("FullName")</span>
 								</a>
-								<a href="@Url.Action("Index", "Borrow")" class="user-account for-buy ms-2">
+								<a href="@Url.Action("MyBorrows", "Borrow")" class="user-account for-buy ms-2">
 									<i class="icon icon-clipboard"></i>
 									<span>Sách đang mượn</span>
-								</a>
-								<a href="@Url.Action("History", "Borrow")" class="user-account for-buy ms-2">
-									<i class="icon icon-clock"></i>
-									<span>Lịch sử mượn</span>
 								</a>
 								<a href="@Url.Action("Logout", "Account")" class="user-account for-buy ms-2">
 									<i class="icon icon-logout"></i>

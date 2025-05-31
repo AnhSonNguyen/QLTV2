@@ -76,5 +76,20 @@ namespace QLTV2.Controllers
 
             return View(borrows);
         }
+        public async Task<IActionResult> History()
+        {
+            var accountId = HttpContext.Session.GetInt32("UserId");
+            if (accountId == null)
+                return RedirectToAction("Login", "Account");
+
+            var borrows = await _context.TbBorrows
+                .Where(b => b.AccountId == accountId)
+                .Include(b => b.TbBorrowDetails)
+                    .ThenInclude(d => d.Book)
+                .OrderByDescending(b => b.BorrowDate)
+                .ToListAsync();
+
+            return View(borrows);
+        }
     }
 }

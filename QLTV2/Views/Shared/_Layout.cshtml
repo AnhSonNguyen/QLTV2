@@ -57,11 +57,12 @@
 									<span>@Context.Session.GetString("FullName")</span>
 								</a>
 								<a href="@Url.Action("MyBorrows", "Borrow")" class="user-account for-buy ms-2">
-									<i class="icon icon-clipboard"></i>
 									<span>Sách đang mượn</span>
 								</a>
+								<a href="@Url.Action("History", "Borrow")" class="user-account for-buy ms-2">
+									<span>Lịch sử mượn</span>
+								</a>
 								<a href="@Url.Action("Logout", "Account")" class="user-account for-buy ms-2">
-									<i class="icon icon-logout"></i>
 									<span>Đăng xuất</span>
 								</a>
 							}
@@ -109,7 +110,7 @@
 						<nav id="navbar">
 							<div class="main-menu stellarnav">
 								<ul class="menu-list">
-									<li class="menu-item active"><a href="#home">Home</a></li>
+									<li class="menu-item active"><a href="https://localhost:7188/Home">Home</a></li>
 									<li class="menu-item has-sub">
 										<a href="#pages" class="nav-link">Pages</a>
 

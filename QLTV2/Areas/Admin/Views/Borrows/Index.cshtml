@@ -1,0 +1,64 @@
+﻿@model IEnumerable<QLTV2.Models.TbBorrow>
+
+@{
+    ViewData["Title"] = "Quản lý phiếu mượn";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <h1>Danh sách phiếu mượn</h1>
+        </div>
+    </section>
+
+    <section class="content mt-3">
+        <div class="container-fluid">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Người mượn</th>
+                        <th>Ngày mượn</th>
+                        <th>Ngày trả dự kiến</th>
+                        <th>Số lượng</th>
+                        <th>Trạng thái</th>
+                        <th>Chi tiết sách</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var totalQuantity = item.TbBorrowDetails?.Sum(d => d.Quantity) ?? 0;
+                        <tr>
+                            <td>@item.Account?.FullName</td>
+                            <td>@item.BorrowDate.ToString("dd/MM/yyyy")</td>
+                            <td>@item.ReturnDate?.ToString("dd/MM/yyyy")</td>
+                            <td>@totalQuantity</td>
+                            <td>@item.Status</td>
+                            <td>
+                                <ul class="mb-0">
+                                    @foreach (var detail in item.TbBorrowDetails)
+                                    {
+                                        <li>@detail.Book?.Title</li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>
+                                <form asp-action="UpdateStatus" method="post" class="d-flex">
+                                    <input type="hidden" name="id" value="@item.BorrowId" />
+                                    <select name="status" class="form-control form-control-sm me-1">
+                                        <option value="Đang mượn" selected="@("Đang mượn" == item.Status)">Đang mượn</option>
+                                        <option value="Đã trả" selected="@("Đã trả" == item.Status)">Đã trả</option>
+                                        <option value="Quá hạn" selected="@("Quá hạn" == item.Status)">Quá hạn</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-primary"> Cập nhật</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

@@ -23,16 +23,25 @@ namespace QLTV2.Controllers
             return View(books);
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             var book = await _context.TbBooks
-                .Include(b => b.Category)
-                .FirstOrDefaultAsync(b => b.BookId == id && b.IsActive);
+    .Include(b => b.TbBookReviews)
+        .ThenInclude(r => r.Account) // 👈 Rất quan trọng để lấy được FullName!
+    .FirstOrDefaultAsync(m => m.BookId == id);
 
             if (book == null)
+            {
                 return NotFound();
+            }
 
             return View(book);
         }
+
     }
 }

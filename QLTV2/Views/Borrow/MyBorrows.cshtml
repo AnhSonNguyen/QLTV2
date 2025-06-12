@@ -1,13 +1,18 @@
 ﻿@model List<QLTV2.Models.TbBorrow>
 @{
+    // Layout và tiêu đề trang
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Sách đang mượn";
 }
 
 <div class="container py-5">
     <h2 class="mb-4">Sách đang mượn</h2>
+    @{
+        // Lọc danh sách chỉ lấy các bản ghi có trạng thái "Đang mượn"
+        var borrowingList = Model.Where(borrow => borrow.Status == "Đang mượn").ToList();
+    }
 
-    @if (!Model.Any())
+    @if (!borrowingList.Any())
     {
         <p>Bạn chưa mượn sách nào.</p>
     }
@@ -23,7 +28,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var borrow in Model)
+                @* Lặp qua các bản ghi đang mượn *@
+                @foreach (var borrow in borrowingList)
                 {
                     foreach (var detail in borrow.TbBorrowDetails)
                     {

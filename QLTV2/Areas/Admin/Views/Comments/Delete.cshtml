@@ -1,0 +1,19 @@
+﻿@model QLTV2.Models.TbBookReview
+@{
+    ViewBag.Title = "Xóa bình luận";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xác nhận xóa bình luận</h2>
+
+<div class="mb-3">
+    <p><strong>Sách:</strong> @Model.Book?.Title</p>
+    <p><strong>Người bình luận:</strong> @Model.Account?.FullName</p>
+    <p><strong>Nội dung:</strong> @Model.Comment</p>
+</div>
+
+<form method="post" asp-action="Delete">
+    <input type="hidden" asp-for="BookReviewId" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>

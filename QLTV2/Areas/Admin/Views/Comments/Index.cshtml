@@ -1,0 +1,47 @@
+﻿@model IEnumerable<QLTV2.Models.TbBookReview>
+
+@{
+    ViewData["Title"] = "Quản lý đánh giá sách";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml"; // Sửa nếu cần
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <h1>Quản lý đánh giá sách</h1>
+        </div>
+    </section>
+
+    <section class="content mt-3">
+        <div class="container-fluid">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Người dùng</th>
+                        <th>Sách</th>
+                        <th>Nội dung</th>
+                        <th>Ngày tạo</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var review in Model)
+                    {
+                        <tr>
+                            <td>@review.Account?.FullName</td>
+                            <td>@review.Book?.Title</td>
+                            <td>@review.Comment</td>
+                            <td>@review.CreatedDate?.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <form asp-action="Delete" method="post" onsubmit="return confirm('Bạn chắc chắn muốn xóa bình luận này?');">
+                                    <input type="hidden" name="id" value="@review.BookReviewId" />
+                                    <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,52 @@
+﻿<meta charset="UTF-8" />
+@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+}
+
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="text-center mb-4">Đăng ký tài khoản</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form method="post" asp-controller="Account" asp-action="Register">
+        <div class="mb-3">
+            <label for="username" class="form-label">Tên đăng nhập</label>
+            <input type="text" name="Username" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Mật khẩu</label>
+            <input type="password" name="Password" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="fullName" class="form-label">Họ tên</label>
+            <input type="text" name="FullName" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Điện thoại</label>
+            <input type="text" name="Phone" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="Email" class="form-control" />
+        </div>
+        <input type="hidden" name="RoleId" value="2" />
+        <button type="submit" class="btn btn-success w-100">Đăng ký</button>
+    </form>
+
+    <div class="text-center mt-3">
+        <span>Đã có tài khoản?</span>
+        <a asp-controller="Account" asp-action="Login">Đăng nhập</a>
+    </div>
+</div>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+

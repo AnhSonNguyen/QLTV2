@@ -1,15 +1,21 @@
 ﻿@{
+    // Trang đăng nhập cho người dùng.
+    // Nếu có lỗi đăng nhập, thông báo sẽ hiển thị từ ViewBag.Error.
+    // Người dùng có thể chuyển sang trang đăng ký tài khoản nếu chưa có tài khoản.
+    // Khi click vào liên kết "Đăng ký", người dùng sẽ được chuyển đến form Register (Account/Register).
     ViewData["Title"] = "Đăng nhập";
 }
 
 <div class="container mt-5" style="max-width: 500px;">
     <h2 class="text-center mb-4">Đăng nhập</h2>
 
+    @* Hiển thị thông báo lỗi nếu có *@
     @if (ViewBag.Error != null)
     {
         <div class="alert alert-danger">@ViewBag.Error</div>
     }
 
+    @* Form đăng nhập *@
     <form method="post" asp-controller="Account" asp-action="Login">
         <div class="mb-3">
             <label for="username" class="form-label">Tên đăng nhập</label>
@@ -21,4 +27,11 @@
         </div>
         <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
     </form>
+
+    @* Liên kết chuyển sang trang đăng ký tài khoản.
+       Khi click vào "Đăng ký", sẽ chuyển hướng đến action Register của controller Account *@
+    <div class="text-center mt-3">
+        <span>Bạn chưa có tài khoản?</span>
+        <a asp-controller="Account" asp-action="Register">Đăng ký</a>
+    </div>
 </div>

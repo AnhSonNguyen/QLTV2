@@ -1,0 +1,26 @@
+﻿@model QLTV2.Models.TbRole
+
+@{
+    ViewData["Title"] = "Xóa vai trò";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <h1>Xóa vai trò</h1>
+        </div>
+    </section>
+    <section class="content mt-3">
+        <div class="container-fluid">
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="RoleId" />
+                <div class="alert alert-danger">
+                    Bạn có chắc chắn muốn xóa vai trò <strong>@Model.RoleName</strong> không?
+                </div>
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+            </form>
+        </div>
+    </section>
+</div>
